@@ -1,4 +1,4 @@
-package cn.junze;
+package cn.junze.sever;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

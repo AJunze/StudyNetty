@@ -1,4 +1,4 @@
-package cn.junze;
+package cn.junze.sever;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
