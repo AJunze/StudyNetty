@@ -14,10 +14,13 @@ public class TimeServerHandler extends ChannelHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msg) throws Exception{
-        //接收数据
+        //读取数据
+
         ByteBuf buf = (ByteBuf) msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
+
+
         String body = new String(req, "utf-8");
         System.out.println("服务器接收到的数据为：" + body);
 
@@ -30,7 +33,7 @@ public class TimeServerHandler extends ChannelHandlerAdapter{
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-
+        //将服务端写入缓冲区的数据刷到SocketChannel中
         ctx.flush();
     }
 

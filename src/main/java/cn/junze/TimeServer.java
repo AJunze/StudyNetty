@@ -16,7 +16,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public class TimeServer {
 
     public void bind(int port){
-
+        //创建线程组，一个用于接收客户端连接，另一负责网络通信
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -24,11 +24,13 @@ public class TimeServer {
 
         serverBootstrap.group(bossGroup,workerGroup)
                 .channel(NioServerSocketChannel.class)
+                //设置tcp参数，将backlog，设置成1024
                 .option(ChannelOption.SO_BACKLOG,1024)
                 .childHandler(new ChildChannelHandler());
         try {
+            //同步阻塞方法，等待配置完成
             ChannelFuture future = serverBootstrap.bind(port).sync();
-
+            //等待服务链路关闭，主函数退出
             future.channel().closeFuture().sync();
 
 
